@@ -1,0 +1,1 @@
+pyg.screenshot('path\\calc_cor.png', region=(22,242,20,22))
