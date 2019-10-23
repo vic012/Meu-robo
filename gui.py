@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter.filedialog import askopenfilename
 from but import butDesktop
 from instrucao import Info
+from janela_card import JanelaVendaCartoes
 import pandas as pd
 
 class Inicializar:
@@ -29,38 +30,26 @@ class Inicializar:
 		self.titulo['font'] = ('Helvetica', '10')
 		self.titulo['foreground'] = '#03125a'
 		self.titulo.pack()
-		#Tela para inserir os valores das vendas com cartões
-		self.tela_cartao = Frame(master)
-		self.tela_cartao['padx'] = 30
-		self.tela_cartao.pack()
-		self.cartao_label = Label(self.tela_cartao)
-		self.cartao_label.pack(side=LEFT)
-		#campo para inserir o valor
-		self.valor_cartao = Entry(self.tela_cartao)
-		self.valor_cartao['width'] = 30
-		self.valor_cartao['foreground'] = '#03125a'
-		self.valor_cartao['font'] = self.fonte_padrao
-		self.valor_cartao.pack(side=LEFT)
 		#Define o campo dos botões
 		self.butões = Frame(master)
 		self.butões['pady'] = 8
 		self.butões.pack()
-		#Botão ENTER
+		#Botão VENDA COM CARTÕES
 		self.autentica = Button(self.butões)
-		self.autentica['text'] = 'CONTINUAR'
+		self.autentica['text'] = 'VENDA COM CARTÕES'
 		self.autentica['font'] = ('Calibri', '8', 'bold')
 		self.autentica['foreground'] = '#c7cbe0'
 		self.autentica['background'] = '#03125a'
-		self.autentica['width'] = 10
-		self.autentica['command'] = self.but_iniciar
+		self.autentica['width'] = 18
+		self.autentica['command'] = self.vendas_com_cartoes
 		self.autentica.pack(side=LEFT)
-		#Botão de informação
+		#Botão VENDA SEM CARTÕES
 		self.autentica = Button(self.butões)
-		self.autentica['text'] = 'INFORMAÇÃO'
+		self.autentica['text'] = 'VENDA SEM CARTÕES'
 		self.autentica['font'] = ('Calibri', '8', 'bold')
 		self.autentica['foreground'] = '#c7cbe0'
 		self.autentica['background'] = '#03125a'
-		self.autentica['width'] = 12
+		self.autentica['width'] = 18
 		self.autentica['command'] = self.informacao
 		self.autentica.pack(side=LEFT)
 		#Botão CANCELAR
@@ -72,13 +61,13 @@ class Inicializar:
 		self.autentica['width'] = 8
 		self.autentica['command'] = self.butões.quit
 		self.autentica.pack(side=LEFT)
-		#Avaliação do But
+		#Botão INFORMAÇÕES
 		self.autentica = Button(self.butões)
-		self.autentica['text'] = 'AVALIE O MEU TRABALHO'
+		self.autentica['text'] = 'INFORMAÇÕES'
 		self.autentica['font'] = ('Calibri', '8', 'bold')
 		self.autentica['foreground'] = '#c7cbe0'
 		self.autentica['background'] = '#03125a'
-		self.autentica['width'] = 20
+		self.autentica['width'] = 12
 		self.autentica['command'] = self.informacao
 		self.autentica.pack(side=LEFT)
 
@@ -86,16 +75,17 @@ class Inicializar:
 		informe = Info()
 		informe.mensagem()
 
-	def but_iniciar(self):
-		vendas_com_cartoes = self.valor_cartao.get()
-		selec_arquivo = askopenfilename()
-		iniciar = butDesktop(vendas_com_cartoes, selec_arquivo)
-		iniciar.verificacao()
+	def vendas_com_cartoes(self):
+		root = Tk()
+		root.title('Vendas com cartões')
+		root.geometry('600x110')
+		JanelaVendaCartoes(root)
+		root.mainloop()
 		
 root = Tk()
 imagem = PhotoImage(file='.\\imagens\\but.png')
 root.title('But de vendas')
 root.iconphoto(False, imagem)
-root.geometry('600x150')
+root.geometry('600x130')
 Inicializar(root)
 root.mainloop()
